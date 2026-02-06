@@ -9,6 +9,11 @@ const router = express.Router();
 */
 router.post("/", validateCreateRequest, FlightController.createFlight);
 
+/* 
+    GET    /api/v1/flights?trip=MUM-DEL
+*/
+router.get("/", FlightController.getAllFlights);
+
 // router.get("/", FlightController.getFlights);
 // router.get("/:flightId", FlightController.getFlight);
 // router.delete("/:flightId", FlightController.deleteFlight);

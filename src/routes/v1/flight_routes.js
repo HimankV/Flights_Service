@@ -1,6 +1,6 @@
 const express = require("express");
 const { FlightController } = require("../../controllers");
-const { validateCreateRequest } =
+const { validateCreateRequest, validateUpdateSeatsRequest } =
   require("../../middlewares").FlightMiddlewares;
 const router = express.Router();
 
@@ -10,13 +10,22 @@ const router = express.Router();
 router.post("/", validateCreateRequest, FlightController.createFlight);
 
 /* 
-    GET    /api/v1/flights?trip=MUM-DEL
+    GET    /api/v1/flights?trip=MUM-DEL&sort=price_ASC
 */
 router.get("/", FlightController.getAllFlights);
 
-// router.get("/", FlightController.getFlights);
-// router.get("/:flightId", FlightController.getFlight);
-// router.delete("/:flightId", FlightController.deleteFlight);
-// router.patch("/:flightId", FlightController.updateFlight);
+/* 
+    GET    /api/v1/flights/:flightId
+*/
+router.get("/:flightId", FlightController.getFlight);
+
+/* 
+    GET    /api/v1/flights/:flightId
+*/
+router.patch(
+  "/:flightId/seats",
+  validateUpdateSeatsRequest,
+  FlightController.updateSeats,
+);
 
 module.exports = router;
